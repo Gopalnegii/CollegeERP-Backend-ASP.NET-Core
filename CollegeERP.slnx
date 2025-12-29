@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="CollegeERP .API/CollegeERP .API.csproj" />
+  <Project Path="CollegeERP .Application/CollegeERP .Application.csproj" />
+  <Project Path="CollegeERP .Common/CollegeERP .Common.csproj" />
+  <Project Path="CollegeERP .Infrastructure/CollegeERP .Infrastructure.csproj" />
+</Solution>

@@ -4,6 +4,7 @@ using System.Text;
 using CollegeERP_.Application.DTOs;
 using CollegeERP_.Application.Interfaces.Repositories;
 using CollegeERP_.Infrastructure.Data.Context;
+using CollegeERP.Domain.Data.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace CollegeERP_.Infrastructure.Repositories
@@ -14,17 +15,13 @@ namespace CollegeERP_.Infrastructure.Repositories
         public DepartmentRepository(CollegeERPDbContext context ) { 
             _context = context;
         }
-        public async Task<IEnumerable<DepartmentDTO>> GetAllDepartmentsAsync()
+        public async Task<IEnumerable<Department>> GetAllDepartmentsAsync()
         {
-            return await _context.Departments.AsNoTracking()
-                .Where(d => d.Status == 1)
-                .Select(d => new DepartmentDTO
-                {
-                    DepartmentId = d.DepartmentId,
-                    DepartmentCode = d.DepartmentCode,
-                    DepartmentName = d.DepartmentName
-                })
-                .ToListAsync();
+            return await _context.Departments.ToListAsync();
+        }
+        public async Task<Department?> GetDepartmentByIdAsync(int departmentId)
+        {
+            return await _context.Departments.FirstOrDefaultAsync(d => d.DepartmentId == departmentId);
         }
     }
 }

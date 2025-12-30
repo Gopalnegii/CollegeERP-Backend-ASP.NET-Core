@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace CollegeERP_.Infrastructure.Data.Entities;
+namespace CollegeERP.Domain.Data.Entities;
 
 public partial class Department
 {

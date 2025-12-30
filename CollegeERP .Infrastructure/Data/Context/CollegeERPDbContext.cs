@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using CollegeERP_.Infrastructure.Data.Entities;
+using CollegeERP.Domain.Data.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace CollegeERP_.Infrastructure.Data.Context;

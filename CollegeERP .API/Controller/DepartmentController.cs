@@ -19,5 +19,16 @@ namespace CollegeERP_.API.Controller
             var departments = await _DepartmentService.GetAllDepartmentsAsync();
             return Ok(departments);
         }
+
+        [HttpGet("{id:int}")]
+        public async Task<IActionResult> GetDepartmentById(int id)
+        {
+            var department = await _DepartmentService.GetDepartmentByIdAsync(id);
+            if (department == null)
+            {
+                return NotFound(new {message = " Department not found"});
+            }
+            return Ok(department);
     }
+}
 }

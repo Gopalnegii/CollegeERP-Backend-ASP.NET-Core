@@ -9,6 +9,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\CollegeERP .Common\CollegeERP .Common.csproj" />
+    <ProjectReference Include="..\CollegeERP.Domain\CollegeERP.Domain.csproj" />
   </ItemGroup>
 
   <ItemGroup>

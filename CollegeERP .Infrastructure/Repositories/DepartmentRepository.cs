@@ -31,6 +31,39 @@ namespace CollegeERP_.Infrastructure.Repositories
             }
             return department;
         }
+        public async Task<Department> UpdateDepartmentAsync(int id, string code, string name)
+        {
+            var existence = await _context.Departments.FindAsync(id);
+            var exintence = await _context.Departments.FirstOrDefaultAsync(d=>d.DepartmentId == id && d.Status==1);
+
+            if (existence == null)
+            {
+                throw new KeyNotFoundException("Department not found");
+            }
+            existence.DepartmentName = name;
+            existence.DepartmentCode = code;
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateException ex) when (IsUniqueViolation(ex)) 
+            {
+                throw new DepartmentAlreadyExistsException(existence.DepartmentName);
+            }
+            return existence;
+        }
+        public async Task DeleteDepartment(int id)
+        {
+            var department = await _context.Departments.FindAsync(id);
+            if(department == null || department.Status==0)
+            {
+                throw new KeyNotFoundException("Department now found");
+
+            }
+
+            department.Status = 0;
+            await _context.SaveChangesAsync();
+        }
         public async Task<IEnumerable<Department>> GetAllDepartmentsAsync()
         {
             return await _context.Departments.ToListAsync();
@@ -39,6 +72,8 @@ namespace CollegeERP_.Infrastructure.Repositories
         {
             return await _context.Departments.FirstOrDefaultAsync(d => d.DepartmentId == departmentId);
         }
+        
+
 
         //Helper methods 
         private static bool IsUniqueViolation(DbUpdateException ex)

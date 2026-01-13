@@ -54,5 +54,23 @@ namespace CollegeERP_.Application.Services.Departments
             };
             return departmentResponse;
         }
+        public async Task DeleteDepartment(int id)
+        {
+            await _departmentRepository.DeleteDepartment(id);
+        }
+        public async Task<CreateDepartmentResponseDTO> UpdateDepartmentAsync(UpdateDepartmentRequest departmentRequest)
+        {
+
+           var RepositoryResponse=  await _departmentRepository.UpdateDepartmentAsync(departmentRequest.DepartmentId, departmentRequest.DepartmentCode, departmentRequest.DepartmentName);
+            
+            var departmentResponse = new CreateDepartmentResponseDTO
+            {
+                DepartmentId = RepositoryResponse.DepartmentId,
+                Code = RepositoryResponse.DepartmentCode,
+                Name = RepositoryResponse.DepartmentName
+            };
+            return departmentResponse;
+
+        }
     }
 }

@@ -40,8 +40,7 @@ namespace CollegeERP_.API.Controller
         {
             try
             {
-                var updatedDepartment =
-                     await _DepartmentService.UpdateDepartmentAsync(requestDTO);
+                var updatedDepartment = await _DepartmentService.UpdateDepartmentAsync(requestDTO);
                 return Ok(updatedDepartment);
             }
             catch(KeyNotFoundException ex)
@@ -54,6 +53,19 @@ namespace CollegeERP_.API.Controller
             }
 
         }
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteDepartment(int id)
+        {
+            try
+            {
+                await _DepartmentService.DeleteDepartment(id);
+                return NoContent();
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
+        }
         [HttpGet]
         public async Task<IActionResult> GetAllDepartments()
         {
@@ -61,7 +73,7 @@ namespace CollegeERP_.API.Controller
             return Ok(departments);
         }
 
-        [HttpGet("{id:int}")]
+        [HttpGet("{id}")]
         public async Task<IActionResult> GetDepartmentById(int id)
         {
             var department = await _DepartmentService.GetDepartmentByIdAsync(id);

@@ -4,11 +4,11 @@ using CollegeERP_.Application.Interfaces.Services;
 using CollegeERP.Domain.Data.Entities;
 using System;
 
-
 using System.Collections.Generic;
 using System.Text;
+using CollegeERP.Domain.Exceptions;
 
-namespace CollegeERP_.Application.Services.Department
+namespace CollegeERP_.Application.Services.Departments
 {
     public class DepartmentService : IDepartmentService
     {
@@ -36,6 +36,23 @@ namespace CollegeERP_.Application.Services.Department
             };
             return dto;
 
+        }
+        public async Task<CreateDepartmentResponseDTO> CreateDepartmentAsync(CreateDepartmentDTO dto)
+        {
+            Department department = new Department
+            {
+                DepartmentCode = dto.Code,
+                DepartmentName = dto.Name,
+                Status = 1
+            };
+            await _departmentRepository.CreateDepartmentAsync(department);
+            var departmentResponse = new CreateDepartmentResponseDTO
+            {
+                DepartmentId = department.DepartmentId,
+                Code = department.DepartmentCode,
+                Name = department.DepartmentName
+            };
+            return departmentResponse;
         }
     }
 }

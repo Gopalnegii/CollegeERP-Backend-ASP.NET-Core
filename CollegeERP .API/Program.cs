@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using CollegeERP_.Application.Interfaces.Repositories;
 using CollegeERP_.Infrastructure.Repositories;
 using CollegeERP_.Application.Interfaces.Services;
-using CollegeERP_.Application.Services.Department;
+using CollegeERP_.Application.Services.Departments;
 
 
 var builder = WebApplication.CreateBuilder(args);

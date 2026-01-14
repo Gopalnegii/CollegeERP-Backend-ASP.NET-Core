@@ -19,8 +19,6 @@ namespace CollegeERP_.API.Controller
         [HttpPost]
         public async Task<IActionResult> CreateDepartment([FromBody] CreateDepartmentDTO departmentDto)
         {
-            try
-            {
                 var createdDepartment =
                 await _DepartmentService.CreateDepartmentAsync(departmentDto);
 
@@ -29,42 +27,18 @@ namespace CollegeERP_.API.Controller
                     new { id = createdDepartment.DepartmentId },
                     createdDepartment
                 );
-            }
-            catch (DepartmentAlreadyExistsException ex)
-            {
-                return Conflict(new { message = ex.Message });
-            }
         }
         [HttpPut]
         public async Task<IActionResult> UpdateDepartment([FromBody] UpdateDepartmentRequest requestDTO)
         {
-            try
-            {
                 var updatedDepartment = await _DepartmentService.UpdateDepartmentAsync(requestDTO);
                 return Ok(updatedDepartment);
-            }
-            catch(KeyNotFoundException ex)
-            {
-                return NotFound(new { message = ex.Message });
-            }
-            catch (DepartmentAlreadyExistsException ex)
-            {
-                return Conflict(new { message = ex.Message });
-            }
-
         }
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteDepartment(int id)
         {
-            try
-            {
                 await _DepartmentService.DeleteDepartment(id);
-                return NoContent();
-            }
-            catch (KeyNotFoundException ex)
-            {
-                return NotFound(ex.Message);
-            }
+            return NoContent();
         }
         [HttpGet]
         public async Task<IActionResult> GetAllDepartments()
@@ -77,10 +51,6 @@ namespace CollegeERP_.API.Controller
         public async Task<IActionResult> GetDepartmentById(int id)
         {
             var department = await _DepartmentService.GetDepartmentByIdAsync(id);
-            if (department == null)
-            {
-                return NotFound(new {message = "Department not found"});
-            }
             return Ok(department);
         }
 }

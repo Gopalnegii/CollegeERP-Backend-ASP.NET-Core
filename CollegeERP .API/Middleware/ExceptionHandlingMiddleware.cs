@@ -1,16 +1,19 @@
-﻿    using System.Net;
+﻿    using CollegeERP.Domain.Exceptions;
+using CollegeERP_.Application.DTOs;
+    using System.Net;
     using System.Text.Json;
-    using CollegeERP.Domain.Exceptions;
 namespace CollegeERP_.API.Middleware
 {
 
     public class ExceptionHandlingMiddleware
     {
+        private readonly ILogger<ExceptionHandlingMiddleware> _logger;
         private readonly RequestDelegate _next;
-
-        public ExceptionHandlingMiddleware(RequestDelegate next)
+        
+        public ExceptionHandlingMiddleware(RequestDelegate next,ILogger<ExceptionHandlingMiddleware> logger)
         {
             _next = next;
+            _logger = logger;
         }
 
         public async Task Invoke(HttpContext context)
@@ -21,17 +24,38 @@ namespace CollegeERP_.API.Middleware
             }
             catch (Exception ex)
             {
+                if (ex is not DomainException)
+                {
+                    _logger.LogError(ex, "Unhandled system exception occurred");
+                }
+
                 await HandleException(context, ex);
             }
         }
 
-        private static Task HandleException(HttpContext context, Exception ex)
+        private static async Task HandleException(HttpContext context, Exception ex)
         {
             HttpStatusCode status;
             string message;
 
             switch (ex)
             {
+                case ValidationException vex:
+                    status = HttpStatusCode.BadRequest;
+
+                    context.Response.ContentType = "application/json";
+                    context.Response.StatusCode = (int)status;
+
+                    var response = new ApiErrorResponse
+                    {
+                        Error = vex.Message,
+                        Status = (int)status,
+                        Details = vex.Errors,
+                        traceId = context.TraceIdentifier
+                    };
+
+                    await context.Response.WriteAsync(JsonSerializer.Serialize(response));
+                    return;
                 case DepartmentAlreadyExistsException:
                     status = HttpStatusCode.Conflict;   // 409
                     message = ex.Message;
@@ -56,13 +80,10 @@ namespace CollegeERP_.API.Middleware
             context.Response.ContentType = "application/json";
             context.Response.StatusCode = (int)status;
 
-            var payload = JsonSerializer.Serialize(new
-            {
-                error = message,
-                status = (int)status
-            });
+            var payload = new ApiErrorResponse { Error = message, Status = (int)status,traceId=context.TraceIdentifier };
 
-            return context.Response.WriteAsync(payload);
+                await context.Response.WriteAsync(JsonSerializer.Serialize(payload));
+            return; 
         }
     }
 

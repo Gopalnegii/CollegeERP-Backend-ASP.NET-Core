@@ -19,30 +19,44 @@ namespace CollegeERP_.API.Controller
         [HttpPost]
         public async Task<IActionResult> CreateDepartment([FromBody] CreateDepartmentDTO departmentDto)
         {
-                var createdDepartment =
-                await _DepartmentService.CreateDepartmentAsync(departmentDto);
+            if (!ModelState.IsValid)
+            {
+                var errors = ModelState.Where(x => x.Value.Errors.Count > 0).ToDictionary(
+             x => x.Key,
+             x => x.Value.Errors.Select(e => e.ErrorMessage).ToArray());
+                throw new ValidationException(errors);
+            }
+            var createdDepartment =
+            await _DepartmentService.CreateDepartmentAsync(departmentDto);
 
-                return CreatedAtAction(
-                    nameof(GetDepartmentById),
-                    new { id = createdDepartment.DepartmentId },
-                    createdDepartment
-                );
+            return CreatedAtAction(
+                nameof(GetDepartmentById),
+                new { id = createdDepartment.DepartmentId },
+                createdDepartment
+            );
         }
         [HttpPut]
         public async Task<IActionResult> UpdateDepartment([FromBody] UpdateDepartmentRequest requestDTO)
         {
-                var updatedDepartment = await _DepartmentService.UpdateDepartmentAsync(requestDTO);
-                return Ok(updatedDepartment);
+            if (!ModelState.IsValid)
+            {
+                var errors = ModelState.Where(x => x.Value.Errors.Count > 0).ToDictionary(
+             x => x.Key,
+             x => x.Value.Errors.Select(e => e.ErrorMessage).ToArray());
+             throw new ValidationException(errors);
+            }
+            var updatedDepartment = await _DepartmentService.UpdateDepartmentAsync(requestDTO);
+            return Ok(updatedDepartment);
         }
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteDepartment(int id)
         {
-                await _DepartmentService.DeleteDepartment(id);
+            await _DepartmentService.DeleteDepartment(id);
             return NoContent();
         }
         [HttpGet]
         public async Task<IActionResult> GetAllDepartments()
-        {
+        { 
             var departments = await _DepartmentService.GetAllDepartmentsAsync();
             return Ok(departments);
         }
@@ -53,5 +67,5 @@ namespace CollegeERP_.API.Controller
             var department = await _DepartmentService.GetDepartmentByIdAsync(id);
             return Ok(department);
         }
-}
+    }
 }

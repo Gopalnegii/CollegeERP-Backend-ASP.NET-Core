@@ -33,8 +33,7 @@ namespace CollegeERP_.Infrastructure.Repositories
         }
         public async Task<Department> UpdateDepartmentAsync(int id, string code, string name)
         {
-            var existence = await _context.Departments.FindAsync(id);
-            var exintence = await _context.Departments.FirstOrDefaultAsync(d=>d.DepartmentId == id && d.Status==1);
+            var existence = await _context.Departments.FirstOrDefaultAsync(d=>d.DepartmentId == id && d.Status==1);
 
             if (existence == null)
             {
@@ -57,7 +56,7 @@ namespace CollegeERP_.Infrastructure.Repositories
             var department = await _context.Departments.FindAsync(id);
             if(department == null || department.Status==0)
             {
-                throw new KeyNotFoundException("Department now found");
+                throw new KeyNotFoundException("Department not found");
 
             }
 
@@ -66,11 +65,18 @@ namespace CollegeERP_.Infrastructure.Repositories
         }
         public async Task<IEnumerable<Department>> GetAllDepartmentsAsync()
         {
-            return await _context.Departments.ToListAsync();
+            var dept = await _context.Departments.Where(d => d.Status != 0).ToListAsync(); 
+            return dept;
         }
-        public async Task<Department?> GetDepartmentByIdAsync(int departmentId)
+        public async Task<Department> GetDepartmentByIdAsync(int departmentId)
         {
-            return await _context.Departments.FirstOrDefaultAsync(d => d.DepartmentId == departmentId);
+            var dept = await _context.Departments
+         .FirstOrDefaultAsync(d => d.DepartmentId == departmentId && d.Status != 0);
+
+            if (dept == null)
+                throw new KeyNotFoundException("Department not found");
+
+            return dept;
         }
         
 

@@ -1,5 +1,4 @@
-﻿using CollegeERP_.Application.DTOs;
-using CollegeERP_.Application.Interfaces.Repositories;
+﻿using CollegeERP_.Application.Interfaces.Repositories;
 using CollegeERP_.Application.Interfaces.Services;
 using CollegeERP.Domain.Data.Entities;
 using System;
@@ -7,8 +6,9 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using CollegeERP.Domain.Exceptions;
+using CollegeERP_.Application.DTOs.Department;
 
-namespace CollegeERP_.Application.Services.Departments
+namespace CollegeERP_.Application.Services
 {
     public class DepartmentService : IDepartmentService
     {
@@ -42,12 +42,12 @@ namespace CollegeERP_.Application.Services.Departments
                 DepartmentCode = dto.Code,
                 DepartmentName = dto.Name,
             };
-            await _departmentRepository.CreateDepartmentAsync(department);
+            var repositoryResponse = await _departmentRepository.CreateDepartmentAsync(department);
             var departmentResponse = new CreateDepartmentResponseDTO
             {
-                DepartmentId = department.DepartmentId,
-                Code = department.DepartmentCode,
-                Name = department.DepartmentName
+                DepartmentId = repositoryResponse.DepartmentId,
+                Code = repositoryResponse.DepartmentCode,
+                Name = repositoryResponse.DepartmentName
             };
             return departmentResponse;
         }

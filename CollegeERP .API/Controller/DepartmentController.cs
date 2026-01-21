@@ -1,7 +1,7 @@
 ﻿using CollegeERP.Domain.Exceptions;
-using CollegeERP_.Application.DTOs;
+using CollegeERP_.Application.DTOs.Department;
 using CollegeERP_.Application.Interfaces.Services;
-using CollegeERP_.Application.Services.Departments;
+using CollegeERP_.Application.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 

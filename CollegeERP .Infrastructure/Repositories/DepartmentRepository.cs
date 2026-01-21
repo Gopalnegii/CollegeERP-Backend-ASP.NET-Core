@@ -27,7 +27,7 @@ namespace CollegeERP_.Infrastructure.Repositories
             }
             catch (DbUpdateException ex) when (IsUniqueViolation(ex))
             {
-                throw new DepartmentAlreadyExistsException(department.DepartmentName); 
+                throw new AlreadyExistsException($"Department '{department.DepartmentName}' already Exists"); 
             }
             return department;
         }
@@ -47,7 +47,7 @@ namespace CollegeERP_.Infrastructure.Repositories
             }
             catch (DbUpdateException ex) when (IsUniqueViolation(ex)) 
             {
-                throw new DepartmentAlreadyExistsException(existence.DepartmentName);
+                throw new AlreadyExistsException($"Department '{existence.DepartmentName}' already Exists"); 
             }
             return existence;
         }

@@ -8,11 +8,22 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Include="DTOs\.Courses\CreateCourseRequest.cs" />
+    <Compile Include="DTOs\.Courses\GetCourseResponse.cs" />
+    <Compile Include="DTOs\.Courses\UpdateCourseRequest.cs" />
+    <Compile Include="DTOs\.Department\CreateDepartmentDTO.cs" />
+    <Compile Include="DTOs\.Department\CreateDepartmentResponseDTO.cs" />
+    <Compile Include="DTOs\.Department\DepartmentDTO.cs" />
+    <Compile Include="DTOs\.Department\UpdateDepartmentRequest.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\CollegeERP .Common\CollegeERP .Common.csproj" />
     <ProjectReference Include="..\CollegeERP.Domain\CollegeERP.Domain.csproj" />
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="DTOs\.Student\" />
     <Folder Include="Mappings\" />
   </ItemGroup>
 

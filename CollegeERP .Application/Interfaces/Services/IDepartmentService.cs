@@ -1,5 +1,5 @@
 ﻿using CollegeERP.Domain.Data.Entities;
-using CollegeERP_.Application.DTOs;
+using CollegeERP_.Application.DTOs.Department;
 using System;
 using System.Collections.Generic;
 using System.Text;

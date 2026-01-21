@@ -56,7 +56,7 @@ namespace CollegeERP_.API.Middleware
 
                     await context.Response.WriteAsync(JsonSerializer.Serialize(response));
                     return;
-                case DepartmentAlreadyExistsException:
+                case AlreadyExistsException:
                     status = HttpStatusCode.Conflict;   // 409
                     message = ex.Message;
                     break;

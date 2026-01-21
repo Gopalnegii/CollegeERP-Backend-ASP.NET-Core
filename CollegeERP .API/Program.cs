@@ -1,7 +1,7 @@
 using CollegeERP_.API.Middleware;
 using CollegeERP_.Application.Interfaces.Repositories;
 using CollegeERP_.Application.Interfaces.Services;
-using CollegeERP_.Application.Services.Departments;
+using CollegeERP_.Application.Services;
 using CollegeERP_.Infrastructure.Data.Context;
 using CollegeERP_.Infrastructure.Repositories;
 using Microsoft.AspNetCore.Mvc;

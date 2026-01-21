@@ -10,14 +10,11 @@ namespace CollegeERP.Domain.Exceptions
         {
         }
     }
-    public class DepartmentAlreadyExistsException:DomainException
+    public class AlreadyExistsException : DomainException
     {
-
-        public DepartmentAlreadyExistsException(string name)
-        : base($"Department '{name}' already exists.")
-        {
-        }
+        public AlreadyExistsException(string message) : base(message) { }
     }
+
     public class ValidationException : DomainException
     {
         public IDictionary<string, string[]> Errors { get; }

@@ -1,13 +1,7 @@
 ﻿using CollegeERP.Domain.Data.Entities;
-using CollegeERP_.Application.DTOs.Courses;
 using CollegeERP_.Application.Interfaces.Repositories;
 using CollegeERP_.Infrastructure.Data.Context;
-using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Identity.Client;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace CollegeERP_.Infrastructure.Repositories
 {

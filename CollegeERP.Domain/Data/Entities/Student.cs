@@ -19,5 +19,7 @@ public partial class Student
 
     public virtual Course Course { get; set; } = null!;
 
+    public virtual StudentProfile? StudentProfile { get; set; }
+
     public virtual User User { get; set; } = null!;
 }

@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using CollegeERP_.Infrastructure;
-using CollegeERP.Domain.Data.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace CollegeERP_.Infrastructure.Data.Context;
+namespace CollegeERP_.API;
 
 public partial class CollegeERPDbContext : DbContext
 {

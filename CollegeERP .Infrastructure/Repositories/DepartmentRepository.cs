@@ -1,13 +1,9 @@
 ﻿using CollegeERP.Domain.Data.Entities;
 using CollegeERP.Domain.Exceptions;
-using CollegeERP_.Application.DTOs;
 using CollegeERP_.Application.Interfaces.Repositories;
 using CollegeERP_.Infrastructure.Data.Context;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace CollegeERP_.Infrastructure.Repositories
 {

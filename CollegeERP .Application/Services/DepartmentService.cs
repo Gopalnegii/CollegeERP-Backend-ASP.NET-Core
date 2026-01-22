@@ -1,12 +1,7 @@
-﻿using CollegeERP_.Application.Interfaces.Repositories;
-using CollegeERP_.Application.Interfaces.Services;
-using CollegeERP.Domain.Data.Entities;
-using System;
-
-using System.Collections.Generic;
-using System.Text;
-using CollegeERP.Domain.Exceptions;
+﻿using CollegeERP.Domain.Data.Entities;
 using CollegeERP_.Application.DTOs.Department;
+using CollegeERP_.Application.Interfaces.Repositories;
+using CollegeERP_.Application.Interfaces.Services;
 
 namespace CollegeERP_.Application.Services
 {

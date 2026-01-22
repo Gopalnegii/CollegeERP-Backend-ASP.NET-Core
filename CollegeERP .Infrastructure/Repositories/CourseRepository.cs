@@ -49,7 +49,7 @@ namespace CollegeERP_.Infrastructure.Repositories
         {
             _context.Courses.Add(course);
             await _context.SaveChangesAsync();
-            return course;
+                return course;
         }
 
         public async Task DeleteCourseAsync(int CourseId)

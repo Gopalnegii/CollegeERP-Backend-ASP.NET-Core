@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace CollegeERP_.API.Controller
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/Course")]
     public class CourseController : ControllerBase
     {
         private readonly ICourseService _courseServices;
@@ -16,23 +16,23 @@ namespace CollegeERP_.API.Controller
             _courseServices = courseServices;
         }
         [HttpGet]
-        public async Task<IActionResult> GetAllCoursesAsync()
+        public async Task<IActionResult> GetAllCourses()
         {
             return Ok(await _courseServices.GetAllCoursesAsync());
         }
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetCourseByIdAsync(int id)
+        public async Task<IActionResult> GetCourseById(int id)
         {
             return Ok(await _courseServices.GetCourseAsync(id));
         }
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteCourseAsync(int id)
+        public async Task<IActionResult> DeleteCourse(int id)
         {
             await _courseServices.DeleteCourseAsync(id);
             return NoContent();
         }
         [HttpPost]
-        public async Task<IActionResult> CreateCourseAsync([FromBody] CreateCourseRequest createCourseRequest)
+        public async Task<IActionResult> CreateCourse([FromBody] CreateCourseRequest createCourseRequest)
         {
             if(!ModelState.IsValid)
             {
@@ -42,12 +42,12 @@ namespace CollegeERP_.API.Controller
                 throw new ValidationException(errors);
             }
             var serviceResponse = await _courseServices.CreateCourseAsync(createCourseRequest);
-            return CreatedAtAction(nameof(GetCourseByIdAsync),
+            return CreatedAtAction(nameof(GetCourseById),
                 new { id = serviceResponse.CourseId },
                 serviceResponse);
         }
         [HttpPut]
-        public async Task<IActionResult> UpdateCourseAsync([FromBody] UpdateCourseRequest updateCourseRequest)
+        public async Task<IActionResult> UpdateCourse([FromBody] UpdateCourseRequest updateCourseRequest)
         {
             if (!ModelState.IsValid)
             {

@@ -13,5 +13,6 @@ namespace CollegeERP_.Infrastructure.Repositories
         {
             _context = collegeERPDbContext;
         }
+
     }
 }

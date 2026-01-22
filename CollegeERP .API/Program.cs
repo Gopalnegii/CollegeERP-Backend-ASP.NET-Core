@@ -18,8 +18,18 @@ builder.Services.AddOpenApi();
 // Add services to the container.
 
 builder.Services.AddDbContext<CollegeERPDbContext>(options=>options.UseSqlServer(builder.Configuration.GetConnectionString("CollegeERP")));
+
+//Dependency Injection
 builder.Services.AddScoped<IDepartmentRepository, DepartmentRepository>();
 builder.Services.AddScoped<IDepartmentService, DepartmentService>();
+builder.Services.AddScoped<ICourseRepository, CourseRepository>();  
+builder.Services.AddScoped<ICourseService, CourseService>();
+builder.Services.AddScoped<IStudentRepository, StudentRepository>();
+builder.Services.AddScoped<IStudentService, StudentService>();
+
+
+
+//To suppress automatic model state validation
 builder.Services.Configure<ApiBehaviorOptions>(options =>
 {
     options.SuppressModelStateInvalidFilter = true;

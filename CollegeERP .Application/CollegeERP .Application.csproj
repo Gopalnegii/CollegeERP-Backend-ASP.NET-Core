@@ -21,6 +21,10 @@
     <Compile Include="DTOs\.Student\CreateStudentRequest.cs" />
     <Compile Include="DTOs\.Student\GetStudentResponse.cs" />
     <Compile Include="DTOs\.Student\UpdateStudentRequest.cs" />
+    <Compile Include="DTOs\.User\ChangePasswordRequest.cs" />
+    <Compile Include="DTOs\.User\CreateUserRequest.cs" />
+    <Compile Include="DTOs\.User\UpdateUserRequest.cs" />
+    <Compile Include="DTOs\.User\UserResponse.cs" />
   </ItemGroup>
 
   <ItemGroup>

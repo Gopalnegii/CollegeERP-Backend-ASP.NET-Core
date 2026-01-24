@@ -1,0 +1,13 @@
+﻿using CollegeERP.Domain.Data.Entities;
+using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace CollegeERP_.Application.Interfaces.Repositories
+{
+    public interface IUserRepository
+    {
+        Task<IEnumerable<User>> GetAllAsync();
+        Task<User?> GetByIdAsync(int id);
+    }
+}

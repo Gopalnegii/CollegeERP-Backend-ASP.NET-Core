@@ -24,5 +24,18 @@ namespace CollegeERP_.Infrastructure.Repositories
             var userData = await _context.Users.Where(u=>u.UserId==id && u.Status!=0).FirstOrDefaultAsync();
             return userData;
         }
+        public async Task<bool> EmailExistsAsync(string email)
+        {
+            return await _context.Users.AnyAsync(u => u.Email == email && u.Status != 0);
+        }
+        public async Task<User> AddAsync(User user)
+        {
+            await _context.Users.AddAsync(user);
+            return user;
+        }
+        public async Task SaveAsync()
+        {
+            await _context.SaveChangesAsync();
+        }
     }
 }

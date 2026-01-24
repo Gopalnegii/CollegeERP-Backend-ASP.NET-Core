@@ -9,5 +9,8 @@ namespace CollegeERP_.Application.Interfaces.Repositories
     {
         Task<IEnumerable<User>> GetAllAsync();
         Task<User?> GetByIdAsync(int id);
+        Task<bool> EmailExistsAsync(string email);
+        Task<User> AddAsync(User user);
+        Task SaveAsync();
     }
 }

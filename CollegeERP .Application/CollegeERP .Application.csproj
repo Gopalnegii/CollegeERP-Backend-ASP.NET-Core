@@ -7,7 +7,11 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
-  <ItemGroup>
+	<ItemGroup>
+		<FrameworkReference Include="Microsoft.AspNetCore.App" />
+	</ItemGroup>
+
+	<ItemGroup>
     <Compile Include="DTOs\.Courses\CreateCourseRequest.cs" />
     <Compile Include="DTOs\.Courses\GetCourseResponse.cs" />
     <Compile Include="DTOs\.Courses\UpdateCourseRequest.cs" />

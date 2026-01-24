@@ -1,9 +1,11 @@
+using CollegeERP.Domain.Data.Entities;
 using CollegeERP_.API.Middleware;
 using CollegeERP_.Application.Interfaces.Repositories;
 using CollegeERP_.Application.Interfaces.Services;
 using CollegeERP_.Application.Services;
 using CollegeERP_.Infrastructure.Data.Context;
 using CollegeERP_.Infrastructure.Repositories;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -28,7 +30,9 @@ builder.Services.AddScoped<IStudentRepository, StudentRepository>();
 builder.Services.AddScoped<IStudentService, StudentService>();
 builder.Services.AddScoped<IRoleRepository, RoleRepository>();
 builder.Services.AddScoped<IRoleService, RoleService>();
-
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
 
 
 

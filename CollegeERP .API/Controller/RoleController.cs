@@ -30,29 +30,12 @@ namespace CollegeERP_.API.Controller
         [HttpPost]
         public async Task<IActionResult> CreateRole([FromBody] RoleCreateRequest request)
         {
-            if (!ModelState.IsValid)
-            {
-               var errors = ModelState.Where(v => v.Value.Errors.Count > 0).ToDictionary(
-                    kvp => kvp.Key,
-                    kvp => kvp.Value.Errors.Select(e => e.ErrorMessage).ToArray()
-                );
-                throw new ValidationException(errors);
-
-            }
             var createdRole = await _roleService.CreateAsync(request);
             return CreatedAtAction(nameof(GetRoleById), new { id = createdRole.RoleId }, createdRole);
         }
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateRole(int id, [FromBody] RoleUpdateRequest request)
         {
-            if (!ModelState.IsValid)
-            {
-                var errors = ModelState.Where(v => v.Value.Errors.Count > 0).ToDictionary(
-                    kvp => kvp.Key,
-                    kvp => kvp.Value.Errors.Select(e => e.ErrorMessage).ToArray()
-                );
-                throw new ValidationException(errors);
-            }
             var updatedRole = await _roleService.UpdateAsync(id, request);
             return Ok(updatedRole);
         }

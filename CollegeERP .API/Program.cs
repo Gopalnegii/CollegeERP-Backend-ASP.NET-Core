@@ -1,4 +1,5 @@
 using CollegeERP.Domain.Data.Entities;
+using CollegeERP_.API.Filters;
 using CollegeERP_.API.Middleware;
 using CollegeERP_.Application.Interfaces.Repositories;
 using CollegeERP_.Application.Interfaces.Services;
@@ -12,8 +13,11 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-
-builder.Services.AddControllers();
+//Filters for Model Validation 
+builder.Services.AddControllers(options => 
+{ 
+    options.Filters.Add<ModelValidationFilter>();
+});
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 
@@ -53,6 +57,7 @@ app.UseHttpsRedirection();
 
 app.UseAuthorization();
 app.UseMiddleware<ExceptionHandlingMiddleware>(); //Global Exception handler
+
 
 app.MapControllers();
 

@@ -33,14 +33,7 @@ namespace CollegeERP_.API.Controller
         }
         [HttpPost]
         public async Task<IActionResult> CreateCourse([FromBody] CreateCourseRequest createCourseRequest)
-        {
-            if(!ModelState.IsValid)
-            {
-                var errors = ModelState.Where(c => c.Value.Errors.Count > 0).ToDictionary(
-                    c => c.Key,
-                    c => c.Value.Errors.Select(e => e.ErrorMessage).ToArray());
-                throw new ValidationException(errors);
-            }
+        { 
             var serviceResponse = await _courseServices.CreateCourseAsync(createCourseRequest);
             return CreatedAtAction(nameof(GetCourseById),
                 new { id = serviceResponse.CourseId },
@@ -49,13 +42,6 @@ namespace CollegeERP_.API.Controller
         [HttpPut]
         public async Task<IActionResult> UpdateCourse([FromBody] UpdateCourseRequest updateCourseRequest)
         {
-            if (!ModelState.IsValid)
-            {
-                var errors = ModelState.Where(c => c.Value.Errors.Count > 0).ToDictionary(
-                    c => c.Key,
-                    c => c.Value.Errors.Select(e => e.ErrorMessage).ToArray());
-                throw new ValidationException(errors);
-            }
             var updateServiceResponse = await _courseServices.UpdateCourseAsync(updateCourseRequest);
             return Ok(updateServiceResponse);
         }

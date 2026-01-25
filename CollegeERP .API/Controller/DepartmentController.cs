@@ -19,13 +19,6 @@ namespace CollegeERP_.API.Controller
         [HttpPost]
         public async Task<IActionResult> CreateDepartment([FromBody] CreateDepartmentDTO departmentDto)
         {
-            if (!ModelState.IsValid)
-            {
-                var errors = ModelState.Where(x => x.Value.Errors.Count > 0).ToDictionary(
-             x => x.Key,
-             x => x.Value.Errors.Select(e => e.ErrorMessage).ToArray());
-                throw new ValidationException(errors);
-            }
             var createdDepartment =
             await _DepartmentService.CreateDepartmentAsync(departmentDto);
 
@@ -38,13 +31,6 @@ namespace CollegeERP_.API.Controller
         [HttpPut]
         public async Task<IActionResult> UpdateDepartment([FromBody] UpdateDepartmentRequest requestDTO)
         {
-            if (!ModelState.IsValid)
-            {
-                var errors = ModelState.Where(x => x.Value.Errors.Count > 0).ToDictionary(
-             x => x.Key,
-             x => x.Value.Errors.Select(e => e.ErrorMessage).ToArray());
-             throw new ValidationException(errors);
-            }
             var updatedDepartment = await _DepartmentService.UpdateDepartmentAsync(requestDTO);
             return Ok(updatedDepartment);
         }

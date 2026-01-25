@@ -38,6 +38,12 @@ namespace CollegeERP_.API.Controller
             var updatedUser = await _service.UpdateAsync(id, userInput);
             return Ok(updatedUser);
         }
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            await _service.DeleteAsync(id);
+            return NoContent();
+        }
 
     }
 }

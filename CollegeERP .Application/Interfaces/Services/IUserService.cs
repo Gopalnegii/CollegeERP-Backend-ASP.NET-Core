@@ -12,5 +12,6 @@ namespace CollegeERP_.Application.Interfaces.Services
         Task<UserResponse> GetByIdAsync(int id);
         Task<UserResponse> CreateAsync(CreateUserRequest userInput);
         Task<UserResponse> UpdateAsync(int id, UpdateUserRequest userInput);
+        Task DeleteAsync(int id);
     }
 }

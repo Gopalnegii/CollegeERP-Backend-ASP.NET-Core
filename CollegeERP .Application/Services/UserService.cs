@@ -85,5 +85,15 @@ namespace CollegeERP_.Application.Services
                 RoleId = user.RoleId
             };
         }
+        public async Task DeleteAsync(int id)
+        {
+            var user = await _repository.GetByIdAsync(id);
+            if (user == null)
+            {
+                throw new KeyNotFoundException($"User with id {id} not found.");
+            }
+            user.Status = 0; 
+            await _repository.UpdateAsync(user);
+        }
     }
 }

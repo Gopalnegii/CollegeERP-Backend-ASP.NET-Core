@@ -56,6 +56,10 @@ namespace CollegeERP_.API.Middleware
 
                     await context.Response.WriteAsync(JsonSerializer.Serialize(response));
                     return;
+                case UnauthorizedAccessException:
+                    status = HttpStatusCode.Unauthorized; // 401
+                    message = ex.Message;
+                    break;
                 case AlreadyExistsException:
                     status = HttpStatusCode.Conflict;   // 409
                     message = ex.Message;

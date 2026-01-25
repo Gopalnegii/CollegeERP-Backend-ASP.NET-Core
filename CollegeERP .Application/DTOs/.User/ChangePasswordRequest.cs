@@ -10,7 +10,7 @@ namespace CollegeERP_.Application.DTOs.User
         [Required]
         [MinLength(8, ErrorMessage = "Minimum 8 Characters required")]
 
-        public string OldPassword { get; set; } = null!;
+        public string CurrentPassword { get; set; } = null!;
         [Required]
         [MinLength(8, ErrorMessage = "Minimum 8 Characters required")]
         public string NewPassword { get; set; } = null!;

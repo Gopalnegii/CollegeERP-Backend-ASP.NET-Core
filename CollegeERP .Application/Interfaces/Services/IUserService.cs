@@ -13,5 +13,6 @@ namespace CollegeERP_.Application.Interfaces.Services
         Task<UserResponse> CreateAsync(CreateUserRequest userInput);
         Task<UserResponse> UpdateAsync(int id, UpdateUserRequest userInput);
         Task DeleteAsync(int id);
+        Task ChangePasswordAsync(int id, ChangePasswordRequest passwards);
     }
 }

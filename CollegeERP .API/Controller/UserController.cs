@@ -44,6 +44,11 @@ namespace CollegeERP_.API.Controller
             await _service.DeleteAsync(id);
             return NoContent();
         }
+        [HttpPut("ChangePassword/{id}")]
+        public async Task<IActionResult> ChangePassword(int id, [FromBody] ChangePasswordRequest changePasswordRequest)
+        {
+            await _service.ChangePasswordAsync(id, changePasswordRequest);
+            return NoContent();
 
-    }
+        }
 }

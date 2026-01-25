@@ -95,5 +95,20 @@ namespace CollegeERP_.Application.Services
             user.Status = 0; 
             await _repository.UpdateAsync(user);
         }
+        public async Task ChangePasswordAsync(int id , ChangePasswordRequest passwards)
+        {
+                       var user = await _repository.GetByIdAsync(id);
+            if (user == null)
+            {
+                throw new KeyNotFoundException($"User with id {id} not found.");
+            }
+            var verificationResult = _passwordHasher.VerifyHashedPassword(user, user.PasswordHash, passwards.CurrentPassword);
+            if (verificationResult == PasswordVerificationResult.Failed)
+            {
+                throw new UnauthorizedAccessException("Current password is incorrect.");
+            }
+            user.PasswordHash = _passwordHasher.HashPassword(user, passwards.NewPassword);
+            await _repository.UpdateAsync(user);
+        }
     }
 }

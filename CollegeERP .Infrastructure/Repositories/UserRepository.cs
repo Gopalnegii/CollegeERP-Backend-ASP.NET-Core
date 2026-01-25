@@ -24,18 +24,21 @@ namespace CollegeERP_.Infrastructure.Repositories
             var userData = await _context.Users.Where(u=>u.UserId==id && u.Status!=0).FirstOrDefaultAsync();
             return userData;
         }
-        public async Task<bool> EmailExistsAsync(string email)
+        public async Task<bool> EmailExistsAsync(string email, int? id = null)
         {
-            return await _context.Users.AnyAsync(u => u.Email == email && u.Status != 0);
+            return await _context.Users.AnyAsync(u => u.Email == email && u.Status != 0 && (id==null || id != u.UserId));
         }
         public async Task<User> AddAsync(User user)
         {
+            await _context.SaveChangesAsync();
             await _context.Users.AddAsync(user);
             return user;
         }
-        public async Task SaveAsync()
+        public async Task UpdateAsync(User user )
         {
+            var updatedUser = _context.Users.Update(user);
             await _context.SaveChangesAsync();
+
         }
     }
 }

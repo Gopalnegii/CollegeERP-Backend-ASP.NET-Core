@@ -32,5 +32,12 @@ namespace CollegeERP_.API.Controller
             var createdUser = await _service.CreateAsync(userInput);
             return CreatedAtAction(nameof(GetById), new { id = createdUser.UserId }, createdUser);
         }
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Update(int id, [FromBody] UpdateUserRequest userInput)
+        {
+            var updatedUser = await _service.UpdateAsync(id, userInput);
+            return Ok(updatedUser);
+        }
+
     }
 }

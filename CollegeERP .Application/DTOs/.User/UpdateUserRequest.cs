@@ -11,7 +11,7 @@ namespace CollegeERP_.Application.DTOs.User
         [Range(1, int.MaxValue, ErrorMessage = "Invalid Role Id")]
         public int RoleId { get; set; }
         [Required]
-        [EmailAddress]
+        [EmailAddress(ErrorMessage ="Invalid Email Id")]
         public string Email { get; set; } = null!;
 
     }

@@ -11,5 +11,6 @@ namespace CollegeERP_.Application.Interfaces.Services
         Task<IEnumerable<UserResponse>> GetAllAsync();
         Task<UserResponse> GetByIdAsync(int id);
         Task<UserResponse> CreateAsync(CreateUserRequest userInput);
+        Task<UserResponse> UpdateAsync(int id, UpdateUserRequest userInput);
     }
 }

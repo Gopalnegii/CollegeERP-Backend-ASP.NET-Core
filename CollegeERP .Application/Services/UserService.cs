@@ -55,7 +55,6 @@ namespace CollegeERP_.Application.Services
             };
             user.PasswordHash = _passwordHasher.HashPassword(user, userInput.Password);
             await _repository.AddAsync(user);
-            await _repository.SaveAsync();
             return new UserResponse
             {
                 UserId = user.UserId,
@@ -63,6 +62,28 @@ namespace CollegeERP_.Application.Services
                 RoleId = user.RoleId
             };
 
+        }
+        public async Task<UserResponse> UpdateAsync(int id, UpdateUserRequest userInput)
+        {
+            var user = await _repository.GetByIdAsync(id);
+            if (user == null)
+            {
+                throw new KeyNotFoundException($"User with id {id} not found.");
+            }
+            if (user.Email != userInput.Email && await _repository.EmailExistsAsync(userInput.Email,id))
+            {
+                
+                throw new AlreadyExistsException($"Email {userInput.Email} is already Exists.");
+            }
+            user.Email = userInput.Email;
+            user.RoleId = userInput.RoleId;
+            await _repository.UpdateAsync(user);
+            return new UserResponse
+            {
+                UserId = user.UserId,
+                Email = user.Email,
+                RoleId = user.RoleId
+            };
         }
     }
 }

@@ -1,6 +1,7 @@
 using CollegeERP.Domain.Data.Entities;
 using CollegeERP_.API.Filters;
 using CollegeERP_.API.Middleware;
+using CollegeERP_.Application.Common.Options;
 using CollegeERP_.Application.Interfaces.Repositories;
 using CollegeERP_.Application.Interfaces.Services;
 using CollegeERP_.Application.Services;
@@ -37,6 +38,8 @@ builder.Services.AddScoped<IRoleService, RoleService>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
+builder.Services.AddScoped<IAuthService, AuthService>();
+//builder.Services.AddScoped<IJwtService, JwtService>();
 
 
 
@@ -45,6 +48,8 @@ builder.Services.Configure<ApiBehaviorOptions>(options =>
 {
     options.SuppressModelStateInvalidFilter = true;
 });
+builder.Services.Configure<JwtOptions>(builder.Configuration.GetSection("Jwt"));
+
 
 var app = builder.Build();
 // Configure the HTTP request pipeline.

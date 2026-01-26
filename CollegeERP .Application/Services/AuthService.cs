@@ -36,7 +36,6 @@ namespace CollegeERP_.Application.Services
                 throw new UnauthorizedAccessException("Invalid email or password.");
 
             var token = _jwtService.GenerateToken(user);
-
             return new LoginResponse
             {
                 Token = token,

@@ -19,7 +19,7 @@ namespace CollegeERP_.API.Controller
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-           return Ok(await _service.GetAllAsync());
+            return Ok(await _service.GetAllAsync());
         }
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
@@ -51,4 +51,5 @@ namespace CollegeERP_.API.Controller
             return NoContent();
 
         }
+    }
 }

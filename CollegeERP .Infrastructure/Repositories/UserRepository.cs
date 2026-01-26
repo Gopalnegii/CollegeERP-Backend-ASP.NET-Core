@@ -30,15 +30,18 @@ namespace CollegeERP_.Infrastructure.Repositories
         }
         public async Task<User> AddAsync(User user)
         {
-            await _context.SaveChangesAsync();
             await _context.Users.AddAsync(user);
+            await _context.SaveChangesAsync();
             return user;
         }
         public async Task UpdateAsync(User user )
         {
             var updatedUser = _context.Users.Update(user);
             await _context.SaveChangesAsync();
-
+        }
+        public async Task<User?> GetByEmailAsync(string email)
+        {
+            return await _context.Users.Include(u => u.Role).FirstOrDefaultAsync(p=>p.Email==email && p.Status!=0);
         }
     }
 }

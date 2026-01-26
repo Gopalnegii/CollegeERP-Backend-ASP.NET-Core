@@ -41,7 +41,7 @@ namespace CollegeERP_.Application.Services
                 Email = user.Email,
                 RoleId = user.RoleId
             };
-        }
+        }   
         public async Task<UserResponse> CreateAsync(CreateUserRequest userInput)
         {
             if(await _repository.EmailExistsAsync(userInput.Email))
@@ -54,7 +54,7 @@ namespace CollegeERP_.Application.Services
                 RoleId = userInput.RoleId
             };
             user.PasswordHash = _passwordHasher.HashPassword(user, userInput.Password);
-            await _repository.AddAsync(user);
+             await _repository.AddAsync(user);
             return new UserResponse
             {
                 UserId = user.UserId,
@@ -110,5 +110,6 @@ namespace CollegeERP_.Application.Services
             user.PasswordHash = _passwordHasher.HashPassword(user, passwards.NewPassword);
             await _repository.UpdateAsync(user);
         }
+
     }
 }

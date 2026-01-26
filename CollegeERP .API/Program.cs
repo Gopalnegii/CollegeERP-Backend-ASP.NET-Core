@@ -39,7 +39,7 @@ builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
 builder.Services.AddScoped<IAuthService, AuthService>();
-//builder.Services.AddScoped<IJwtService, JwtService>();
+builder.Services.AddScoped<IJwtService, JwtService>();
 
 
 

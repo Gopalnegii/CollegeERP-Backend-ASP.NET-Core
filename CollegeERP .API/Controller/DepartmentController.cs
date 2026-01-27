@@ -31,18 +31,24 @@ namespace CollegeERP_.API.Controller
                 createdDepartment
             );
         }
+        [Authorize(Roles = "Admin")]
+
         [HttpPut]
         public async Task<IActionResult> UpdateDepartment([FromBody] UpdateDepartmentRequest requestDTO)
         {
             var updatedDepartment = await _DepartmentService.UpdateDepartmentAsync(requestDTO);
             return Ok(updatedDepartment);
         }
+        [Authorize(Roles = "Admin")]
+
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteDepartment(int id)
         {
             await _DepartmentService.DeleteDepartment(id);
             return NoContent();
         }
+        [Authorize(Roles = "Admin")]
+
         [HttpGet]
         public async Task<IActionResult> GetAllDepartments()
         { 

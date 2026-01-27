@@ -1,11 +1,14 @@
 ﻿using CollegeERP.Domain.Exceptions;
 using CollegeERP_.Application.DTOs.Role;
 using CollegeERP_.Application.Interfaces.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CollegeERP_.API.Controller
 {
+    [Authorize(Roles = "Admin")]
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class RoleController : ControllerBase

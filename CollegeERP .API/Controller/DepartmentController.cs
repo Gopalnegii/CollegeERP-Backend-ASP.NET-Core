@@ -2,11 +2,13 @@
 using CollegeERP_.Application.DTOs.Department;
 using CollegeERP_.Application.Interfaces.Services;
 using CollegeERP_.Application.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CollegeERP_.API.Controller
 {
+    [Authorize]
     [ApiController]
     [Route("api/departments")]
     public class DepartmentController : ControllerBase
@@ -16,6 +18,7 @@ namespace CollegeERP_.API.Controller
         {
             _DepartmentService = departmentService;
         }
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<IActionResult> CreateDepartment([FromBody] CreateDepartmentDTO departmentDto)
         {

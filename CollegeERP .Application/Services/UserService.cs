@@ -33,7 +33,7 @@ namespace CollegeERP_.Application.Services
             var user = await _repository.GetByIdAsync(id);
             if (user == null)
             {
-                throw new KeyNotFoundException($"User with id {id} not found.");
+                throw new KeyNotFoundException("User not found.");
             }
             return new UserResponse
             {
@@ -68,7 +68,7 @@ namespace CollegeERP_.Application.Services
             var user = await _repository.GetByIdAsync(id);
             if (user == null)
             {
-                throw new KeyNotFoundException($"User with id {id} not found.");
+                throw new KeyNotFoundException("User not found.");
             }
             if (user.Email != userInput.Email && await _repository.EmailExistsAsync(userInput.Email,id))
             {

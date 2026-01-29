@@ -15,6 +15,10 @@ namespace CollegeERP_.Application.Services
         public async Task<GetCourseResponse> GetCourseAsync(int id)
         {
              var repoResponse = await _courseRepository.GetCourseByIdAsync(id);
+            if (repoResponse == null)
+            {
+                throw new KeyNotFoundException("Course Not Found");
+            }
             var Course = new GetCourseResponse {
                 CourseId = repoResponse.CourseId,
                 CourseName = repoResponse.CourseName,
@@ -26,24 +30,42 @@ namespace CollegeERP_.Application.Services
         public async Task<IEnumerable<GetCourseResponse>> GetAllCoursesAsync()
         {
             var courses = await _courseRepository.GetAllCourseAsync();
-            return courses.Select(c=> new GetCourseResponse { CourseId = c.CourseId,DepartmentId= c.DepartmentId,CourseName=c.CourseName,TotalSemesters = c.TotalSemesters});
+            return courses.Select(c=> new GetCourseResponse {
+                CourseId = c.CourseId,
+                DepartmentId= c.DepartmentId,
+                CourseName=c.CourseName,
+                TotalSemesters = c.TotalSemesters
+            });
         }
         public async Task DeleteCourseAsync(int id)
         {
-            await _courseRepository.DeleteCourseAsync(id);
-        }
-        public async Task<GetCourseResponse> UpdateCourseAsync(UpdateCourseRequest request)
-        {
-            var course = new Course { CourseId= request.CourseId ,CourseName=request.CourseName, DepartmentId=request.DepartmentId,TotalSemesters=request.TotalSemesters };
-            var responseCourse = await _courseRepository.UpdateCourseAsync(course);
-            var serviceCourseResponse = new GetCourseResponse
+            var course = await _courseRepository.GetCourseByIdAsync(id);
+            if (course == null)
             {
-                CourseId = responseCourse.CourseId,
-                CourseName = responseCourse.CourseName,
-                DepartmentId = responseCourse.DepartmentId,
-                TotalSemesters = responseCourse.TotalSemesters
+                throw new KeyNotFoundException("Course not Found");
+            }
+            course.Status = 0;
+            await _courseRepository.UpdateCourseAsync(course);
+        }
+
+        public async Task<GetCourseResponse> UpdateCourseAsync(int id, UpdateCourseRequest request)
+        {
+            var course = await _courseRepository.GetCourseByIdAsync(id);
+            if (course == null)
+            {
+                throw new KeyNotFoundException("Course not found.");
+            }
+            course.TotalSemesters = request.TotalSemesters;
+            course.CourseName = request.CourseName;
+            course.DepartmentId = request.DepartmentId;
+            await _courseRepository.UpdateCourseAsync(course);
+            return new GetCourseResponse
+            {
+                CourseId = course.CourseId,
+                DepartmentId = course.DepartmentId,
+                CourseName = course.CourseName,
+                TotalSemesters = course.TotalSemesters
             };
-            return serviceCourseResponse;
         }
         public async Task<GetCourseResponse> CreateCourseAsync(CreateCourseRequest request)
         {

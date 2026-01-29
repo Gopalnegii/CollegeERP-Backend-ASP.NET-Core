@@ -45,10 +45,10 @@ namespace CollegeERP_.API.Controller
                 serviceResponse);
         }
         [Authorize(Roles ="Admin")]
-        [HttpPut]
-        public async Task<IActionResult> UpdateCourse([FromBody] UpdateCourseRequest updateCourseRequest)
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateCourse(int id,[FromBody] UpdateCourseRequest updateCourseRequest)
         {
-            var updateServiceResponse = await _courseServices.UpdateCourseAsync(updateCourseRequest);
+            var updateServiceResponse = await _courseServices.UpdateCourseAsync(id ,updateCourseRequest);
             return Ok(updateServiceResponse);
         }
 

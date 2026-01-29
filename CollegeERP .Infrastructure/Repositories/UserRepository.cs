@@ -36,7 +36,7 @@ namespace CollegeERP_.Infrastructure.Repositories
         }
         public async Task UpdateAsync(User user )
         {
-            var updatedUser = _context.Users.Update(user);
+            _context.Users.Update(user);
             await _context.SaveChangesAsync();
         }
         public async Task<User?> GetByEmailAsync(string email)

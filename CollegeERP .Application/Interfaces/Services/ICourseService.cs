@@ -10,7 +10,7 @@ namespace CollegeERP_.Application.Interfaces.Services
         Task<GetCourseResponse> GetCourseAsync(int id);
         Task<IEnumerable<GetCourseResponse>> GetAllCoursesAsync();
         Task DeleteCourseAsync(int id);
-        Task<GetCourseResponse> UpdateCourseAsync(UpdateCourseRequest request);
+        Task<GetCourseResponse> UpdateCourseAsync(int id, UpdateCourseRequest request);
         Task<GetCourseResponse> CreateCourseAsync(CreateCourseRequest request);
     }
 }

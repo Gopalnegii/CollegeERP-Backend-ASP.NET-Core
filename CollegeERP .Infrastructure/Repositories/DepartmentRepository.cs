@@ -2,6 +2,7 @@
 using CollegeERP.Domain.Exceptions;
 using CollegeERP_.Application.Interfaces.Repositories;
 using CollegeERP_.Infrastructure.Data.Context;
+using CollegeERP_.Infrastructure.Helpers;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 
@@ -21,71 +22,33 @@ namespace CollegeERP_.Infrastructure.Repositories
             await _context.SaveChangesAsync();
 
             }
-            catch (DbUpdateException ex) when (IsUniqueViolation(ex))
+            catch (DbUpdateException ex) when (DbExceptionHelper.IsUniqueConstraintViolation(ex))
             {
                 throw new AlreadyExistsException($"Department '{department.DepartmentName}' already Exists"); 
             }
             return department;
         }
-        public async Task<Department> UpdateDepartmentAsync(int id, string code, string name)
+        public async Task UpdateDepartmentAsync(Department department)
         {
-            var existence = await _context.Departments.FirstOrDefaultAsync(d=>d.DepartmentId == id && d.Status==1);
-
-            if (existence == null)
-            {
-                throw new KeyNotFoundException("Department not found");
-            }
-            existence.DepartmentName = name;
-            existence.DepartmentCode = code;
+            _context.Departments.Update(department);
             try
             {
                 await _context.SaveChangesAsync();
             }
-            catch (DbUpdateException ex) when (IsUniqueViolation(ex)) 
+            catch (DbUpdateException ex) when (DbExceptionHelper.IsUniqueConstraintViolation(ex)) 
             {
-                throw new AlreadyExistsException($"Department '{existence.DepartmentName}' already Exists"); 
+                throw new AlreadyExistsException($"Department '{department.DepartmentName}' already Exists"); 
             }
-            return existence;
-        }
-        public async Task DeleteDepartment(int id)
-        {
-            var department = await _context.Departments.FindAsync(id);
-            if(department == null || department.Status==0)
-            {
-                throw new KeyNotFoundException("Department not found");
-
-            }
-
-            department.Status = 0;
-            await _context.SaveChangesAsync();
         }
         public async Task<IEnumerable<Department>> GetAllDepartmentsAsync()
         {
             var dept = await _context.Departments.Where(d => d.Status != 0).ToListAsync(); 
             return dept;
         }
-        public async Task<Department> GetDepartmentByIdAsync(int departmentId)
+        public async Task<Department?> GetDepartmentByIdAsync(int departmentId)
         {
-            var dept = await _context.Departments
-         .FirstOrDefaultAsync(d => d.DepartmentId == departmentId && d.Status != 0);
-
-            if (dept == null)
-                throw new KeyNotFoundException("Department not found");
-
+            var dept = await _context.Departments.Where(d => d.DepartmentId == departmentId && d.Status != 0).FirstOrDefaultAsync();
             return dept;
-        }
-        
-
-
-        //Helper methods 
-        private static bool IsUniqueViolation(DbUpdateException ex)
-        {
-            var sqlException = ex.InnerException as SqlException;
-
-            if (sqlException == null)
-                return false;
-
-            return sqlException.Number == 2627 || sqlException.Number == 2601;
         }
     }
 }

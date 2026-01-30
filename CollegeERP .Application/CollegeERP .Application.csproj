@@ -16,8 +16,7 @@
     <Compile Include="DTOs\.Courses\GetCourseResponse.cs" />
     <Compile Include="DTOs\.Courses\UpdateCourseRequest.cs" />
     <Compile Include="DTOs\.Department\CreateDepartmentDTO.cs" />
-    <Compile Include="DTOs\.Department\CreateDepartmentResponseDTO.cs" />
-    <Compile Include="DTOs\.Department\DepartmentDTO.cs" />
+    <Compile Include="DTOs\.Department\DepartmentResponse.cs" />
     <Compile Include="DTOs\.Department\UpdateDepartmentRequest.cs" />
     <Compile Include="DTOs\.Role\RoleCreateRequest.cs" />
     <Compile Include="DTOs\.Role\RoleResponse.cs" />

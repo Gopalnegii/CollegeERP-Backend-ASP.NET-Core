@@ -8,11 +8,11 @@ namespace CollegeERP_.Application.Interfaces.Services
 {
     public interface IDepartmentService
     {
-        Task<CreateDepartmentResponseDTO>CreateDepartmentAsync(CreateDepartmentDTO departmentdto);
-        Task<CreateDepartmentResponseDTO>UpdateDepartmentAsync(UpdateDepartmentRequest departmentRequest);
+        Task<DepartmentResponse>CreateDepartmentAsync(CreateDepartmentDTO departmentdto);
+        Task<DepartmentResponse>UpdateDepartmentAsync(int id ,UpdateDepartmentRequest departmentRequest);
         Task DeleteDepartment(int id);
-        Task<DepartmentDTO?> GetDepartmentByIdAsync(int departmentId);
-        Task<IEnumerable<DepartmentDTO>> GetAllDepartmentsAsync();
+        Task<DepartmentResponse> GetDepartmentByIdAsync(int departmentId);
+        Task<IEnumerable<DepartmentResponse>> GetAllDepartmentsAsync();
 
     }
 }

@@ -12,16 +12,23 @@ namespace CollegeERP_.Application.Services
         {
             _departmentRepository = departmentRepository;
         }
-        public async Task<IEnumerable<DepartmentDTO>> GetAllDepartmentsAsync()
+        public async Task<IEnumerable<DepartmentResponse>> GetAllDepartmentsAsync()
         {
             var departments =   await _departmentRepository.GetAllDepartmentsAsync();
             
-            return departments.Select(d=> new DepartmentDTO { DepartmentId =d.DepartmentId , DepartmentCode=d.DepartmentCode,DepartmentName=d.DepartmentName});
+            return departments.Select(d=> new DepartmentResponse { 
+                DepartmentId =d.DepartmentId,
+                DepartmentCode=d.DepartmentCode,
+                DepartmentName=d.DepartmentName});
         }
-        public async Task<DepartmentDTO> GetDepartmentByIdAsync(int departmentId)
+        public async Task<DepartmentResponse> GetDepartmentByIdAsync(int departmentId)
         {
             var department = await _departmentRepository.GetDepartmentByIdAsync(departmentId);
-            var dto = new DepartmentDTO
+            if(department == null)
+            {
+                throw new KeyNotFoundException("Department not found.");
+            }
+            var dto = new DepartmentResponse
             {
                 DepartmentId = department.DepartmentId,
                 DepartmentCode = department.DepartmentCode,
@@ -30,7 +37,7 @@ namespace CollegeERP_.Application.Services
             return dto;
 
         }
-        public async Task<CreateDepartmentResponseDTO> CreateDepartmentAsync(CreateDepartmentDTO dto)
+        public async Task<DepartmentResponse> CreateDepartmentAsync(CreateDepartmentDTO dto)
         {
             Department department = new Department
             {
@@ -38,30 +45,40 @@ namespace CollegeERP_.Application.Services
                 DepartmentName = dto.Name,
             };
             var repositoryResponse = await _departmentRepository.CreateDepartmentAsync(department);
-            var departmentResponse = new CreateDepartmentResponseDTO
+            var departmentResponse = new DepartmentResponse
             {
                 DepartmentId = repositoryResponse.DepartmentId,
-                Code = repositoryResponse.DepartmentCode,
-                Name = repositoryResponse.DepartmentName
+                DepartmentCode = repositoryResponse.DepartmentCode,
+                DepartmentName = repositoryResponse.DepartmentName
             };
             return departmentResponse;
         }
         public async Task DeleteDepartment(int id)
         {
-            await _departmentRepository.DeleteDepartment(id);
-        }
-        public async Task<CreateDepartmentResponseDTO> UpdateDepartmentAsync(UpdateDepartmentRequest departmentRequest)
-        {
-
-           var RepositoryResponse=  await _departmentRepository.UpdateDepartmentAsync(departmentRequest.DepartmentId, departmentRequest.DepartmentCode, departmentRequest.DepartmentName);
-            
-            var departmentResponse = new CreateDepartmentResponseDTO
+            var department = await _departmentRepository.GetDepartmentByIdAsync(id);
+            if(department == null)
             {
-                DepartmentId = RepositoryResponse.DepartmentId,
-                Code = RepositoryResponse.DepartmentCode,
-                Name = RepositoryResponse.DepartmentName
+                throw new KeyNotFoundException("Department not found");
+            }
+            department.Status = 0;
+            await _departmentRepository.UpdateDepartmentAsync(department);
+        }
+        public async Task<DepartmentResponse> UpdateDepartmentAsync(int id, UpdateDepartmentRequest departmentRequest)
+        {
+            var department = await _departmentRepository.GetDepartmentByIdAsync(id);
+            if(department == null)
+            {
+                throw new KeyNotFoundException("Department not found");
+            }
+            department.DepartmentName = departmentRequest.DepartmentName;
+            department.DepartmentCode = departmentRequest.DepartmentCode;
+            await _departmentRepository.UpdateDepartmentAsync(department);
+            return new DepartmentResponse
+            {
+                DepartmentId = department.DepartmentId,
+                DepartmentName = department.DepartmentName,
+                DepartmentCode = department.DepartmentCode,
             };
-            return departmentResponse;
 
         }
     }

@@ -5,7 +5,7 @@ using System.Text;
 
 namespace CollegeERP_.Application.DTOs.Department
 {
-    public class DepartmentDTO
+    public class DepartmentResponse
     {
         public int DepartmentId { get; set; }
         public string DepartmentCode { get; set; } = null!;

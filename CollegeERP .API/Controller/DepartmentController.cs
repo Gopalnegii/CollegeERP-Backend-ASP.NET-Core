@@ -33,10 +33,10 @@ namespace CollegeERP_.API.Controller
         }
         [Authorize(Roles = "Admin")]
 
-        [HttpPut]
-        public async Task<IActionResult> UpdateDepartment([FromBody] UpdateDepartmentRequest requestDTO)
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateDepartment(int id, [FromBody] UpdateDepartmentRequest requestDTO)
         {
-            var updatedDepartment = await _DepartmentService.UpdateDepartmentAsync(requestDTO);
+            var updatedDepartment = await _DepartmentService.UpdateDepartmentAsync(id,requestDTO);
             return Ok(updatedDepartment);
         }
         [Authorize(Roles = "Admin")]

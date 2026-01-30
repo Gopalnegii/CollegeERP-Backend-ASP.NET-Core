@@ -7,7 +7,6 @@ namespace CollegeERP_.Application.DTOs.Department
 {
     public class UpdateDepartmentRequest
     {
-        public int DepartmentId { get; set; }
         [Required]
         public string DepartmentCode { get; set; } = null!;
         [Required]

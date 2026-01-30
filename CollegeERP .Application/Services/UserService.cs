@@ -19,7 +19,7 @@ namespace CollegeERP_.Application.Services
         }
         public async Task<IEnumerable<UserResponse>> GetAllAsync()
         {
-               var users = await _repository.GetAllAsync();
+            var users = await _repository.GetAllAsync();
             return users.Select(user => new UserResponse
             {
                 UserId = user.UserId,
@@ -44,10 +44,6 @@ namespace CollegeERP_.Application.Services
         }   
         public async Task<UserResponse> CreateAsync(CreateUserRequest userInput)
         {
-            if(await _repository.EmailExistsAsync(userInput.Email))
-            {
-                throw new AlreadyExistsException($"Email {userInput.Email} is already Exists.");
-            }
             var user = new User
             {
                 Email = userInput.Email,
@@ -69,11 +65,6 @@ namespace CollegeERP_.Application.Services
             if (user == null)
             {
                 throw new KeyNotFoundException("User not found.");
-            }
-            if (user.Email != userInput.Email && await _repository.EmailExistsAsync(userInput.Email,id))
-            {
-                
-                throw new AlreadyExistsException($"Email {userInput.Email} is already Exists.");
             }
             user.Email = userInput.Email;
             user.RoleId = userInput.RoleId;
@@ -97,7 +88,7 @@ namespace CollegeERP_.Application.Services
         }
         public async Task ChangePasswordAsync(int id , ChangePasswordRequest passwards)
         {
-                       var user = await _repository.GetByIdAsync(id);
+            var user = await _repository.GetByIdAsync(id);
             if (user == null)
             {
                 throw new KeyNotFoundException($"User with id {id} not found.");

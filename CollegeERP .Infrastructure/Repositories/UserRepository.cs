@@ -21,23 +21,33 @@ namespace CollegeERP_.Infrastructure.Repositories
         }
         public async Task<User?> GetByIdAsync(int id)
         {
-            var userData = await _context.Users.Where(u=>u.UserId==id && u.Status!=0).FirstOrDefaultAsync();
+            var userData = await _context.Users.Where(u => u.UserId == id && u.Status != 0).FirstOrDefaultAsync();
             return userData;
-        }
-        public async Task<bool> EmailExistsAsync(string email, int? id = null)
-        {
-            return await _context.Users.AnyAsync(u => u.Email == email && u.Status != 0 && (id==null || id != u.UserId));
         }
         public async Task<User> AddAsync(User user)
         {
             await _context.Users.AddAsync(user);
+            try
+            {
             await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateException ex) when (DbExceptionHelper.IsUniqueConstraintViolation(ex))
+            {
+                throw new AlreadyExistsException($"A user with email '{user.Email}' already exists.");
+            }
             return user;
         }
         public async Task UpdateAsync(User user )
         {
             _context.Users.Update(user);
+            try
+            {
             await _context.SaveChangesAsync();
+            }
+            catch(DbUpdateException ex) when (DbExceptionHelper.IsUniqueConstraintViolation(ex))
+            {
+                throw new AlreadyExistsException($"a user with email '{user.Email}' already exists.");
+            }
         }
         public async Task<User?> GetByEmailAsync(string email)
         {

@@ -7,7 +7,19 @@ namespace CollegeERP_.Application.DTOs.Student
 {
     public class CreateStudentRequest
     {
-       
+        public class CreateStudentDto
+        {
+            [Required]
+            [StringLength(20)]
+            public string EnrollmentNo { get; set; } = null!;
+
+            [Required]
+            public int CourseId { get; set; }
+
+            [Required]
+            public int UserId { get; set; }
+        }
+
     }
 
 }

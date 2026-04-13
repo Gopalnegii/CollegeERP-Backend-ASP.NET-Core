@@ -62,7 +62,7 @@ namespace CollegeERP_.Application.Services
                 throw new KeyNotFoundException("Role not found.");
             }
             existingRole.RoleName = roleUpdateRequest.RoleName;
-             await _roleRepository.SaveAsync();
+             await _roleRepository.UpdateAsync(existingRole);
             var role = new RoleResponse { RoleId = existingRole.RoleId, RoleName = existingRole.RoleName };
             return role;
         }
@@ -74,7 +74,7 @@ namespace CollegeERP_.Application.Services
                 throw new KeyNotFoundException("Role not found.");
             }
             existingRole.Status = 0; // Soft delete by setting status to 0
-            await _roleRepository.SaveAsync();
+            await _roleRepository.UpdateAsync(existingRole);
         }
     }
 }

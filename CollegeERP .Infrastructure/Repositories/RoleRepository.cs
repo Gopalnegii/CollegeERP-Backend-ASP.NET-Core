@@ -41,8 +41,9 @@ namespace CollegeERP_.Infrastructure.Repositories
                 throw new AlreadyExistsException($"A role with the name '{roledata.RoleName}' already exists.");
             }
         }
-        public async Task SaveAsync()
+        public async Task UpdateAsync(Role role)
         {
+            _context.Roles.Update(role);
             try
             {
                 await _context.SaveChangesAsync();

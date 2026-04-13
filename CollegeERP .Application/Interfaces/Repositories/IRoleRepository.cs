@@ -10,6 +10,6 @@ namespace CollegeERP_.Application.Interfaces.Repositories
         Task<IEnumerable<Role>> GetAllAsync();
         Task<Role?> GetByIdAsync(int id);
         Task<Role> CreateAsync(Role roledata);
-        Task SaveAsync();
+        Task UpdateAsync(Role role);
     }
 }

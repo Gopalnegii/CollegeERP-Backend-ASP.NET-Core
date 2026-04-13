@@ -7,5 +7,8 @@ namespace CollegeERP_.Application.DTOs.Student
 {
     public class UpdateStudentRequest
     {
+       
+            [Required]
+            public int CourseId { get; set; }
     }
 }

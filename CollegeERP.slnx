@@ -1,7 +1,7 @@
 <Solution>
-  <Project Path="CollegeERP .API/CollegeERP .API.csproj" />
-  <Project Path="CollegeERP .Application/CollegeERP .Application.csproj" />
-  <Project Path="CollegeERP .Common/CollegeERP .Common.csproj" />
-  <Project Path="CollegeERP .Infrastructure/CollegeERP .Infrastructure.csproj" />
+  <Project Path="CollegeERP.API/CollegeERP.API.csproj" />
+  <Project Path="CollegeERP.Application/CollegeERP.Application.csproj" />
+  <Project Path="CollegeERP.Common/CollegeERP.Common.csproj" />
   <Project Path="CollegeERP.Domain/CollegeERP.Domain.csproj" Id="62e829b7-f9f3-48e1-9f8e-3585b9a9c39a" />
+  <Project Path="CollegeERP.Infrastructure/CollegeERP.Infrastructure.csproj" />
 </Solution>

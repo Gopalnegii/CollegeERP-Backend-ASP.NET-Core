@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-public class Class1
+public class UpdateStudentProfileRequest
 {
     [Required]
     [StringLength(100)]
